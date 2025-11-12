@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Check if user is logged in, otherwise redirect to login page
+
 if (!isset($_SESSION['usuario']) || !isset($_SESSION['rol'])) {
     header("Location: ../index.html");
     exit();
@@ -16,30 +16,30 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestión de Movimientos</title>
   <link href="../adi_bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https:
   <style>
     .carousel-item img {
-        height: 30vh; /* Altura del carrusel reducida */
+        height: 30vh; 
         object-fit: cover;
         filter: brightness(0.6);
     }
     .btn-primary {
-        background-color: #adb5bd; /* Light gray accent */
-        border-color: #adb5bd; /* Light gray accent */
+        background-color: 
+        border-color: 
     }
     .btn-primary:hover {
-        background-color: #6c757d; /* Darker gray on hover */
-        border-color: #6c757d; /* Darker gray on hover */
+        background-color: 
+        border-color: 
     }
     .btn-warning {
-        background-color: #adb5bd; /* Light gray accent */
-        border-color: #adb5bd; /* Light gray accent */
-        color: #212529; /* Dark text for contrast */
+        background-color: 
+        border-color: 
+        color: 
     }
     .btn-warning:hover {
-        background-color: #6c757d; /* Darker gray on hover */
-        border-color: #6c757d; /* Darker gray on hover */
-        color: #e0e0e0; /* Light text on hover */
+        background-color: 
+        border-color: 
+        color: 
     }
   </style>
 </head>
@@ -56,11 +56,11 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
         <img src="../img/logo.svg" class="d-block w-100" alt="Análisis y Reportes">
       </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+    <button class="carousel-control-prev" type="button" data-bs-target="
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+    <button class="carousel-control-next" type="button" data-bs-target="
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
@@ -68,8 +68,8 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Sistema de Inventario</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -135,7 +135,7 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
           $sql = "SELECT m.id, p.nombre AS producto_nombre, m.tipo_movimiento, m.cantidad, m.fecha_movimiento, m.observaciones, u.usuario AS usuario_nombre
                   FROM movimientos m
                   JOIN productos p ON m.id_producto = p.id
-                  LEFT JOIN usuarios u ON m.id_usuario = u.id"; // Joined with users table
+                  LEFT JOIN usuarios u ON m.id_usuario = u.id"; 
           $res = $con->query($sql);
   
           if ($res->num_rows > 0) {
@@ -147,7 +147,7 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
                   echo "<td>" . htmlspecialchars($fila["cantidad"]) . "</td>";
                   echo "<td>" . htmlspecialchars($fila["fecha_movimiento"]) . "</td>";
                   echo "<td>" . htmlspecialchars($fila["observaciones"]) . "</td>";
-                  echo "<td>" . htmlspecialchars($fila["usuario_nombre"]) . "</td>"; // Display User
+                  echo "<td>" . htmlspecialchars($fila["usuario_nombre"]) . "</td>"; 
                   if ($rolUsu == 'gerente') {
                       echo "<td>";
                       echo "<a href='edit_movimiento.php?id=" . $fila["id"] . "' class='btn btn-sm btn-warning me-2'><i class='fas fa-edit'></i> Editar</a>";

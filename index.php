@@ -8,8 +8,8 @@
 	<link href="./adi_bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<style>
 		body {
-			background-color: #212529;
-			color: #e0e0e0;
+			background-color: 
+			color: 
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -17,7 +17,7 @@
 			margin: 0;
 		}
 		.login-card {
-			background: #2a2a2a;
+			background: 
 			border: none;
 			border-radius: 15px;
 			box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
@@ -26,30 +26,30 @@
 			max-width: 400px;
 		}
 		.login-card h2 {
-			color: #adb5bd; /* Light gray accent */
+			color: 
 			text-align: center;
 			margin-bottom: 30px;
 			font-weight: 700;
 		}
 		.form-control {
-			background-color: #343a40;
-			border: 1px solid #495057;
-			color: #e0e0e0;
+			background-color: 
+			border: 1px solid 
+			color: 
 		}
 		.form-control:focus {
-			background-color: #343a40;
-			border-color: #adb5bd; /* Light gray accent */
+			background-color: 
+			border-color: 
 			box-shadow: 0 0 0 0.25rem rgba(173, 181, 189, 0.25);
-			color: #e0e0e0;
+			color: 
 		}
 		.btn-primary {
-			background-color: #adb5bd; /* Light gray accent */
-			border-color: #adb5bd; /* Light gray accent */
+			background-color: 
+			border-color: 
 			font-weight: 600;
 		}
 		.btn-primary:hover {
-			background-color: #6c757d;
-			border-color: #6c757d;
+			background-color: 
+			border-color: 
 		}
 	</style>
 </head>
@@ -59,7 +59,7 @@
 		<?php
 		if (isset($_SESSION['error_message'])) {
 			echo '<div class="alert alert-danger text-center" role="alert">' . $_SESSION['error_message'] . '</div>';
-			unset($_SESSION['error_message']); // Clear the message after displaying
+			unset($_SESSION['error_message']); 
 		}
 		?>
 		<form action="Validar.php" method="POST">

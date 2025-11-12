@@ -1,16 +1,16 @@
 <?php
 session_start();
 
-// Check if user is logged in and is a manager, otherwise redirect
+
 if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'gerente') {
-    header("Location: ../index.html"); // Redirect to login page if not authorized
+    header("Location: ../index.html"); 
     exit();
 }
 
 include 'db.php';
 $message = '';
 
-// Fetch categories and providers for the dropdowns
+
 $categorias_res = $con->query("SELECT id, nombre FROM categorias");
 $proveedores_res = $con->query("SELECT id, nombre FROM proveedores");
 
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $precio_compra = $_POST['precio_compra'];
     $precio_venta = $_POST['precio_venta'];
     $stock = $_POST['stock'];
-    $stock_minimo = $_POST['stock_minimo']; // New field
+    $stock_minimo = $_POST['stock_minimo']; 
     $id_categoria = $_POST['id_categoria'];
     $id_proveedor = $_POST['id_proveedor'];
 
@@ -43,15 +43,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registrar Producto</title>
   <link href="../adi_bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https:
   <style>
     .btn-primary {
-        background-color: #adb5bd; /* Light gray accent */
-        border-color: #adb5bd; /* Light gray accent */
+        background-color: 
+        border-color: 
     }
     .btn-primary:hover {
-        background-color: #6c757d; /* Darker gray on hover */
-        border-color: #6c757d; /* Darker gray on hover */
+        background-color: 
+        border-color: 
     }
   </style>
 </head>

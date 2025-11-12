@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-// Check if user is logged in and is a manager
+
 if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'gerente') {
-    header("Location: ../index.php"); // Redirect to login page if not authorized
+    header("Location: ../index.php"); 
     exit();
 } 
 
@@ -17,17 +17,17 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Usuarios</title>
     <link href="../adi_bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https:
     <style>
         body {
-            background-color: #121212;
-            color: #e0e0e0;
+            background-color: 
+            color: 
         }
         .navbar {
             box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
         .carousel-item img {
-            height: 30vh; /* Altura del carrusel reducida */
+            height: 30vh; 
             object-fit: cover;
             filter: brightness(0.6);
         }
@@ -35,43 +35,43 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
             margin-top: 50px;
         }
         .card {
-            background-color: #1f1f1f;
+            background-color: 
             border: none;
             box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
         .btn-primary {
-            background-color: #adb5bd; /* Light gray accent */
-            border-color: #adb5bd; /* Light gray accent */
+            background-color: 
+            border-color: 
         }
         .btn-primary:hover {
-            background-color: #6c757d; /* Darker gray on hover */
-            border-color: #6c757d; /* Darker gray on hover */
+            background-color: 
+            border-color: 
         }
         .btn-warning {
-            background-color: #adb5bd; /* Light gray accent */
-            border-color: #adb5bd; /* Light gray accent */
-            color: #212529; /* Dark text for contrast */
+            background-color: 
+            border-color: 
+            color: 
         }
         .btn-warning:hover {
-            background-color: #6c757d; /* Darker gray on hover */
-            border-color: #6c757d; /* Darker gray on hover */
-            color: #e0e0e0; /* Light text on hover */
+            background-color: 
+            border-color: 
+            color: 
         }
         .btn-danger {
-            background-color: #dc3545; /* Bootstrap default danger */
-            border-color: #dc3545;
+            background-color: 
+            border-color: 
         }
         .btn-danger:hover {
-            background-color: #c82333;
-            border-color: #bd2130;
+            background-color: 
+            border-color: 
         }
         .btn-secondary {
-            background-color: #6c757d; /* Bootstrap default secondary */
-            border-color: #6c757d;
+            background-color: 
+            border-color: 
         }
         .btn-secondary:hover {
-            background-color: #5a6268;
-            border-color: #545b62;
+            background-color: 
+            border-color: 
         }
     </style>
 </head>
@@ -88,11 +88,11 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
         <img src="../img/logo.svg" class="d-block w-100" alt="Análisis y Reportes">
       </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+    <button class="carousel-control-prev" type="button" data-bs-target="
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+    <button class="carousel-control-next" type="button" data-bs-target="
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
@@ -100,7 +100,7 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="../Home.php">Sistema de Inventario</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">

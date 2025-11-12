@@ -1,16 +1,16 @@
 <?php
 session_start();
 
-// Check if user is logged in and is authorized (gerente or empleado)
+
 if (!isset($_SESSION['usuario']) || !isset($_SESSION['rol']) || ($_SESSION['rol'] !== 'gerente' && $_SESSION['rol'] !== 'empleado')) {
-    header("Location: ../index.html"); // Redirect to login page if not authorized
+    header("Location: ../index.html"); 
     exit();
 }
 
 include 'db.php';
 $message = '';
 
-// Fetch products for the dropdown
+
 $productos_res = $con->query("SELECT id, nombre FROM productos");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -18,22 +18,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tipo_movimiento = $_POST['tipo_movimiento'];
     $cantidad = $_POST['cantidad'];
     $observaciones = $_POST['observaciones'];
-    $id_usuario = $_SESSION['id_usuario']; // Get user ID from session
+    $id_usuario = $_SESSION['id_usuario']; 
 
-    // Start transaction
+    
     $con->begin_transaction();
 
     try {
-        // Insert movement
+        
         $stmt = $con->prepare("INSERT INTO movimientos (id_producto, tipo_movimiento, cantidad, observaciones, id_usuario) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("isisi", $id_producto, $tipo_movimiento, $cantidad, $observaciones, $id_usuario);
         $stmt->execute();
         $stmt->close();
 
-        // Update product stock
+        
         if ($tipo_movimiento == 'entrada') {
             $stmt_update = $con->prepare("UPDATE productos SET stock = stock + ? WHERE id = ?");
-        } else { // salida
+        } else { 
             $stmt_update = $con->prepare("UPDATE productos SET stock = stock - ? WHERE id = ?");
         }
         $stmt_update->bind_param("ii", $cantidad, $id_producto);
@@ -56,15 +56,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registrar Movimiento</title>
   <link href="../adi_bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https:
   <style>
     .btn-primary {
-        background-color: #adb5bd; /* Light gray accent */
-        border-color: #adb5bd; /* Light gray accent */
+        background-color: 
+        border-color: 
     }
     .btn-primary:hover {
-        background-color: #6c757d; /* Darker gray on hover */
-        border-color: #6c757d; /* Darker gray on hover */
+        background-color: 
+        border-color: 
     }
   </style>
 </head>

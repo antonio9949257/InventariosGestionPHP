@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Check if user is logged in, otherwise redirect to login page
+
 if (!isset($_SESSION['usuario']) || !isset($_SESSION['rol'])) {
     header("Location: index.html");
     exit();
@@ -17,17 +17,17 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Inventario</title>
     <link href="./adi_bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https:
     <style>
         body {
-            background-color: #121212;
-            color: #e0e0e0;
+            background-color: 
+            color: 
         }
         .navbar {
             box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
         .carousel-item img {
-            height: 30vh; /* Altura del carrusel reducida */
+            height: 30vh; 
             object-fit: cover;
             filter: brightness(0.6);
         }
@@ -45,10 +45,10 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
             box-shadow: 0 12px 24px rgba(0,0,0,0.7);
         }
         .footer {
-            background-color: #1f1f1f;
+            background-color: 
             padding: 20px 0;
             margin-top: 40px;
-            border-top: 1px solid #333;
+            border-top: 1px solid 
         }
     </style>
 </head>
@@ -56,9 +56,9 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
 
 <div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
-    <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target="
+    <button type="button" data-bs-target="
+    <button type="button" data-bs-target="
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -83,11 +83,11 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
       </div>
     </div>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+  <button class="carousel-control-prev" type="button" data-bs-target="
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
   </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+  <button class="carousel-control-next" type="button" data-bs-target="
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
@@ -95,14 +95,14 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Sistema de Inventario</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mx-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">Dashboard</a>
+          <a class="nav-link" href="
         </li>
         <li class="nav-item">
           <a class="nav-link" href="./categorias/index.php">Categorías</a>
@@ -202,9 +202,9 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
     <div class="container text-center">
         <p>&copy; 2025 Sistema de Inventario. Todos los derechos reservados.</p>
         <p>
-            <a href="#" class="text-white me-2"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+            <a href="
+            <a href="
+            <a href="
         </p>
     </div>
 </footer>

@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-// Check if user is logged in and is a manager, otherwise redirect
+
 if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'gerente') {
-    header("Location: ../index.php"); // Redirect to login page if not authorized
+    header("Location: ../index.php"); 
     exit();
 }
 
@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $clave = $_POST['clave'];
     $rol = $_POST['rol'];
 
-    // Hash the password
+    
     $hashed_password = password_hash($clave, PASSWORD_DEFAULT);
 
     $stmt = $con->prepare("INSERT INTO usuarios (usuario, clave, rol) VALUES (?, ?, ?)");
@@ -37,15 +37,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registrar Usuario</title>
   <link href="../adi_bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https:
   <style>
     .btn-primary {
-        background-color: #adb5bd; /* Light gray accent */
-        border-color: #adb5bd; /* Light gray accent */
+        background-color: 
+        border-color: 
     }
     .btn-primary:hover {
-        background-color: #6c757d; /* Darker gray on hover */
-        border-color: #6c757d; /* Darker gray on hover */
+        background-color: 
+        border-color: 
     }
   </style>
 </head>
