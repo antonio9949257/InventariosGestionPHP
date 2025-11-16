@@ -14,9 +14,54 @@ use Fpdf\Fpdf;
 
 class PDF extends Fpdf
 {
+    // Función para calcular el número de líneas que ocupará un texto en un MultiCell
+    function NbLines($w, $txt)
+    {
+        $cw = &$this->CurrentFont['cw'];
+        if ($w == 0)
+            $w = $this->w - $this->rMargin - $this->x;
+        $wmax = ($w - 2 * $this->cMargin) * 1000 / $this->FontSize;
+        $s = str_replace("\r", '', $txt);
+        $nb = strlen($s);
+        if ($nb == 0)
+            return 1;
+        $sep = -1;
+        $i = 0;
+        $j = 0;
+        $l = 0;
+        $nl = 1;
+        while ($i < $nb) {
+            $c = $s[$i];
+            if ($c == "\n") {
+                $i++;
+                $sep = -1;
+                $j = $i;
+                $l = 0;
+                $nl++;
+                continue;
+            }
+            if ($c == ' ')
+                $sep = $i;
+            $l += $cw[$c];
+            if ($l > $wmax) {
+                if ($sep == -1) {
+                    if ($i == $j)
+                        $i++;
+                } else
+                    $i = $sep + 1;
+                $sep = -1;
+                $j = $i;
+                $l = 0;
+                $nl++;
+            } else
+                $i++;
+        }
+        return $nl;
+    }
     
     function Header()
     {
+
         
         $this->SetFont('Arial', 'B', 20);
         
@@ -45,38 +90,71 @@ class PDF extends Fpdf
     
     function FancyTable($header, $data)
     {
-        
+        // Colores y fuentes para el encabezado
         $this->SetFillColor(200, 200, 200);
         $this->SetTextColor(40);
         $this->SetDrawColor(150);
         $this->SetLineWidth(.3);
         $this->SetFont('', 'B');
 
-        
-        $w = array(10, 30, 25, 20, 20, 15, 15, 25, 25); 
+        // Anchos de las columnas
+        $w = array(10, 30, 40, 20, 20, 15, 15, 25, 25); 
         for ($i = 0; $i < count($header); $i++) {
-            $this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', true);
+            $this->Cell($w[$i], 7, mb_convert_encoding($header[$i], 'ISO-8859-1', 'UTF-8'), 1, 0, 'C', true);
         }
         $this->Ln();
 
-        
+        // Colores y fuentes para las filas de datos
         $this->SetFillColor(245, 245, 245);
         $this->SetTextColor(0);
         $this->SetFont('');
 
-        
         $fill = false;
         foreach ($data as $row) {
-            $this->Cell($w[0], 6, $row['id'], 'LR', 0, 'C', $fill);
-            $this->Cell($w[1], 6, $row['nombre'], 'LR', 0, 'L', $fill);
-            $this->Cell($w[2], 6, $row['descripcion'], 'LR', 0, 'L', $fill);
-            $this->Cell($w[3], 6, $row['precio_compra'], 'LR', 0, 'R', $fill);
-            $this->Cell($w[4], 6, $row['precio_venta'], 'LR', 0, 'R', $fill);
-            $this->Cell($w[5], 6, $row['stock'], 'LR', 0, 'C', $fill);
-            $this->Cell($w[6], 6, $row['stock_minimo'], 'LR', 0, 'C', $fill); 
-            $this->Cell($w[7], 6, $row['categoria_nombre'], 'LR', 0, 'L', $fill);
-            $this->Cell($w[8], 6, $row['proveedor_nombre'], 'LR', 0, 'L', $fill);
-            $this->Ln();
+            $x = $this->GetX();
+            $y = $this->GetY();
+            $line_height = 6; // Altura de línea base para celdas de una sola línea
+
+            // Convertir todos los datos a ISO-8859-1 para FPDF
+            $id = mb_convert_encoding($row['id'], 'ISO-8859-1', 'UTF-8');
+            $nombre = mb_convert_encoding($row['nombre'], 'ISO-8859-1', 'UTF-8');
+            $descripcion = mb_convert_encoding($row['descripcion'], 'ISO-8859-1', 'UTF-8');
+            $precio_compra = mb_convert_encoding($row['precio_compra'], 'ISO-8859-1', 'UTF-8');
+            $precio_venta = mb_convert_encoding($row['precio_venta'], 'ISO-8859-1', 'UTF-8');
+            $stock = mb_convert_encoding($row['stock'], 'ISO-8859-1', 'UTF-8');
+            $stock_minimo = mb_convert_encoding($row['stock_minimo'], 'ISO-8859-1', 'UTF-8');
+            $categoria_nombre = mb_convert_encoding($row['categoria_nombre'], 'ISO-8859-1', 'UTF-8');
+            $proveedor_nombre = mb_convert_encoding($row['proveedor_nombre'], 'ISO-8859-1', 'UTF-8');
+
+            // Calcular la altura necesaria para la MultiCell de la descripción
+            $this->SetFont('', '', 8); // Usar fuente más pequeña para la descripción
+            $nb_desc_lines = $this->NbLines($w[2], $descripcion);
+            $h_desc = $line_height * $nb_desc_lines;
+            $this->SetFont(''); // Restaurar fuente
+
+            // La altura máxima de la fila será la de la descripción o la altura de línea base
+            $max_row_height = max($line_height, $h_desc);
+
+            // Dibujar celdas antes de la descripción
+            $this->Cell($w[0], $max_row_height, $id, 'LR', 0, 'C', $fill);
+            $this->Cell($w[1], $max_row_height, $nombre, 'LR', 0, 'L', $fill);
+
+            // Dibujar la descripción con MultiCell
+            $this->SetXY($x + $w[0] + $w[1], $y); // Posicionar para la MultiCell
+            $this->SetFont('', '', 8); // Fuente más pequeña para la descripción
+            $this->MultiCell($w[2], $line_height, $descripcion, 'LR', 'L', $fill);
+            $this->SetFont(''); // Restaurar fuente
+
+            // Dibujar las celdas restantes, ajustando la posición Y
+            $this->SetXY($x + $w[0] + $w[1] + $w[2], $y); // Posicionar para la siguiente celda después de la descripción
+            $this->Cell($w[3], $max_row_height, $precio_compra, 'LR', 0, 'R', $fill);
+            $this->Cell($w[4], $max_row_height, $precio_venta, 'LR', 0, 'R', $fill);
+            $this->Cell($w[5], $max_row_height, $stock, 'LR', 0, 'C', $fill);
+            $this->Cell($w[6], $max_row_height, $stock_minimo, 'LR', 0, 'C', $fill);
+            $this->Cell($w[7], $max_row_height, $categoria_nombre, 'LR', 0, 'L', $fill);
+            $this->Cell($w[8], $max_row_height, $proveedor_nombre, 'LR', 0, 'L', $fill);
+            
+            $this->Ln($max_row_height); // Avanzar a la siguiente línea por la altura máxima de la fila
             $fill = !$fill;
         }
         

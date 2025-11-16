@@ -116,6 +116,19 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
         .card-link .card i {
             color: var(--primary-color);
         }
+        .home-banner {
+            max-height: 250px;
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+            border: 1px solid #ddd; /* Borde para el carrusel */
+            border-radius: 0.5rem; /* Bordes redondeados */
+        }
+        .main-logo {
+            border: 1px solid #ddd; /* Borde para el logo principal */
+            border-radius: 0.5rem; /* Bordes redondeados */
+            padding: 5px; /* Pequeño padding para que el borde no pegue al logo */
+        }
     </style>
 </head>
 <body>
