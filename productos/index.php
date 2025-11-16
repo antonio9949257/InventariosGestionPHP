@@ -1,175 +1,77 @@
-<?php
-session_start();
-
-
-if (!isset($_SESSION['usuario']) || !isset($_SESSION['rol'])) {
-    header("Location: ../index.html");
-    exit();
-}
-
-$rolUsu = htmlspecialchars($_SESSION['rol']);
+<?php 
+$page_title = 'Productos';
+require_once __DIR__ . '/../templates/header.php'; 
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestión de Productos</title>
-  <link href="../adi_bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https:
-  <style>
-    .carousel-item img {
-        height: 30vh; 
-        object-fit: cover;
-        filter: brightness(0.6);
-    }
-    .btn-primary {
-        background-color: 
-        border-color: 
-    }
-    .btn-primary:hover {
-        background-color: 
-        border-color: 
-    }
-    .btn-warning {
-        background-color: 
-        border-color: 
-        color: 
-    }
-    .btn-warning:hover {
-        background-color: 
-        border-color: 
-        color: 
-    }
-  </style>
-</head>
-<body class="bg-dark text-light">
-  <div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="../img/logo.svg" class="d-block w-100" alt="Gestión de Inventario">
-      </div>
-      <div class="carousel-item">
-        <img src="../img/logosinfonfo.png" class="d-block w-100" alt="Optimización de Procesos">
-      </div>
-      <div class="carousel-item">
-        <img src="../img/logo.svg" class="d-block w-100" alt="Análisis y Reportes">
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav mx-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="../Home.php">Dashboard</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="../categorias/index.php">Categorías</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="../proveedores/index.php">Proveedores</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="index.php">Productos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="../movimientos/index.php">Movimientos</a>
-        </li>
-        <?php if ($rolUsu == 'gerente'): ?>
-        <li class="nav-item">
-          <a class="nav-link" href="../usuarios/index.php">Usuarios</a>
-        </li>
-        <?php endif; ?>
-        <li class="nav-item">
-          <a class="nav-link" href="../logout.php">Cerrar Sesión</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-  
-  <div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h2>Lista de Productos</h2>
-      <?php if ($rolUsu == 'gerente'): ?>
-      <div>
-        <a href="create_producto.php" class="btn btn-primary"><i class="fas fa-plus"></i> Registrar Producto</a>
-        <a href="generar_pdf.php" target="_blank" class="btn btn-secondary"><i class="fas fa-file-pdf"></i> Generar PDF</a>
-      </div>
-      <?php endif; ?>
-    </div>
-    <div class="table-responsive">
-      <table class="table table-dark table-striped table-hover">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Precio Compra</th>
-            <th>Precio Venta</th>
-            <th>Stock</th>
-            <th>Stock Mínimo</th> <!-- Added Stock Mínimo column header -->
-            <th>Categoría</th>
-            <th>Proveedor</th>
+<div class="container my-5">
+    <div class="table-container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0">Lista de Productos</h2>
             <?php if ($rolUsu == 'gerente'): ?>
-            <th>Acciones</th>
+            <div>
+                <a href="create_producto.php" class="btn btn-primary"><i class="fas fa-plus"></i> Registrar Producto</a>
+                <a href="generar_pdf.php" target="_blank" class="btn btn-secondary"><i class="fas fa-file-pdf"></i> Generar PDF</a>
+            </div>
             <?php endif; ?>
-          </tr>
-        </thead>
-        <tbody>
-          <?php
-          include 'db.php';
-  
-          $sql = "SELECT p.id, p.nombre, p.descripcion, p.precio_compra, p.precio_venta, p.stock, p.stock_minimo, c.nombre AS categoria_nombre, pr.nombre AS proveedor_nombre 
-                  FROM productos p
-                  LEFT JOIN categorias c ON p.id_categoria = c.id
-                  LEFT JOIN proveedores pr ON p.id_proveedor = pr.id";
-          $res = $con->query($sql);
-  
-          if ($res->num_rows > 0) {
-              while($fila = $res->fetch_assoc()) {
-                  echo "<tr>";
-                  echo "<td>" . htmlspecialchars($fila["id"]) . "</td>";
-                  echo "<td>" . htmlspecialchars($fila["nombre"]) . "</td>";
-                  echo "<td>" . htmlspecialchars($fila["descripcion"]) . "</td>";
-                  echo "<td>" . htmlspecialchars($fila["precio_compra"]) . "</td>";
-                  echo "<td>" . htmlspecialchars($fila["precio_venta"]) . "</td>";
-                  echo "<td>" . htmlspecialchars($fila["stock"]) . "</td>";
-                  echo "<td>" . htmlspecialchars($fila["stock_minimo"]) . "</td>"; 
-                  echo "<td>" . htmlspecialchars($fila["categoria_nombre"]) . "</td>";
-                  echo "<td>" . htmlspecialchars($fila["proveedor_nombre"]) . "</td>";
-                  if ($rolUsu == 'gerente') {
-                      echo "<td>";
-                      echo "<a href='edit_producto.php?id=" . $fila["id"] . "' class='btn btn-sm btn-warning me-2'><i class='fas fa-edit'></i> Editar</a>";
-                      echo "<a href='delete_producto.php?id=" . $fila["id"] . "' class='btn btn-sm btn-danger'><i class='fas fa-trash'></i> Eliminar</a>";
-                      echo "</td>";
-                  }
-                  echo "</tr>";
-              }
-          } else {
-              echo "<tr><td colspan='" . ($rolUsu == 'gerente' ? '10' : '9') . "' class='text-center'>No se encontraron productos</td></tr>";
-          }
-          $con->close();
-          ?>
-        </tbody>
-      </table>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Precio Compra</th>
+                        <th>Precio Venta</th>
+                        <th>Stock</th>
+                        <th>Stock Mínimo</th>
+                        <th>Categoría</th>
+                        <th>Proveedor</th>
+                        <?php if ($rolUsu == 'gerente'): ?>
+                        <th>Acciones</th>
+                        <?php endif; ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    include 'db.php';
+            
+                    $sql = "SELECT p.id, p.nombre, p.descripcion, p.precio_compra, p.precio_venta, p.stock, p.stock_minimo, c.nombre AS categoria_nombre, pr.nombre AS proveedor_nombre 
+                            FROM productos p
+                            LEFT JOIN categorias c ON p.id_categoria = c.id
+                            LEFT JOIN proveedores pr ON p.id_proveedor = pr.id";
+                    $result = $con->query($sql);
+            
+                    if ($result->num_rows > 0) {
+                        while($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>" . htmlspecialchars($row["id"]) . "</td>";
+                            echo "<td>" . htmlspecialchars($row["nombre"]) . "</td>";
+                            echo "<td>" . htmlspecialchars($row["descripcion"]) . "</td>";
+                            echo "<td>" . htmlspecialchars($row["precio_compra"]) . "</td>";
+                            echo "<td>" . htmlspecialchars($row["precio_venta"]) . "</td>";
+                            echo "<td>" . htmlspecialchars($row["stock"]) . "</td>";
+                            echo "<td>" . htmlspecialchars($row["stock_minimo"]) . "</td>"; 
+                            echo "<td>" . htmlspecialchars($row["categoria_nombre"]) . "</td>";
+                            echo "<td>" . htmlspecialchars($row["proveedor_nombre"]) . "</td>";
+                            if ($rolUsu == 'gerente') {
+                                echo "<td>";
+                                echo "<a href='edit_producto.php?id=" . $row["id"] . "' class='btn btn-sm btn-warning me-2'><i class='fas fa-edit'></i> Editar</a>";
+                                echo "<a href='delete_producto.php?id=" . $row["id"] . "' class='btn btn-sm btn-danger' onclick=\"return confirm('¿Estás seguro de que quieres eliminar este producto?');\"><i class='fas fa-trash'></i> Eliminar</a>";
+                                echo "</td>";
+                            }
+                            echo "</tr>";
+                        }
+                    } else {
+                        $colspan = ($rolUsu == 'gerente') ? 10 : 9;
+                        echo "<tr><td colspan='" . $colspan . "' class='text-center'>No se encontraron productos</td></tr>";
+                    }
+                    $con->close();
+                    ?>
+                </tbody>
+            </table>
+        </div>
     </div>
-  </div>
+</div>
 
-  <script src="../adi_bootstrap/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php require_once __DIR__ . '/../templates/footer.php'; ?>

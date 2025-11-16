@@ -7,16 +7,16 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'gerente') {
     exit();
 }
 
-require('../fpdf186/fpdf.php');
+require_once __DIR__ . '/../vendor/autoload.php';
 require('db.php');
 
-class PDF extends FPDF
+use Fpdf\Fpdf;
+
+class PDF extends Fpdf
 {
     
     function Header()
     {
-        
-        $this->Image('../img/logosinfonfo.png', 10, 8, 33);
         
         $this->SetFont('Arial', 'B', 20);
         

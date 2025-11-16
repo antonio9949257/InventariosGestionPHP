@@ -1,0 +1,7 @@
+{
+    "name": "devadam/inventariosphp",
+    "description": "Sistema de inventarios en PHP.",
+    "require": {
+        "fpdf/fpdf": "^1.86"
+    }
+}

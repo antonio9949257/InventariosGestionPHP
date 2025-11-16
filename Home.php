@@ -1,146 +1,78 @@
-<?php
-session_start();
+<?php 
+$page_title = 'Inicio';
+require_once 'templates/header.php'; 
 
+// --- Lógica para obtener estadísticas ---
+require __DIR__ . '/categorias/db.php'; 
 
-if (!isset($_SESSION['usuario']) || !isset($_SESSION['rol'])) {
-    header("Location: index.html");
-    exit();
-}
-
-$nomUsu = htmlspecialchars($_SESSION['usuario']);
-$rolUsu = htmlspecialchars($_SESSION['rol']);
+$total_productos = $con->query("SELECT COUNT(*) as count FROM productos")->fetch_assoc()['count'];
+$total_categorias = $con->query("SELECT COUNT(*) as count FROM categorias")->fetch_assoc()['count'];
+$total_proveedores = $con->query("SELECT COUNT(*) as count FROM proveedores")->fetch_assoc()['count'];
+$total_movimientos = $con->query("SELECT COUNT(*) as count FROM movimientos")->fetch_assoc()['count'];
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Inventario</title>
-    <link href="./adi_bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https:
-    <style>
-        body {
-            background-color: 
-            color: 
-        }
-        .navbar {
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-        .carousel-item img {
-            height: 30vh; 
-            object-fit: cover;
-            filter: brightness(0.6);
-        }
-        .welcome-card {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(img/prin_medico.jpg) no-repeat center center;
-            background-size: cover;
-            border: none;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
-        }
-        .card-link {
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-        }
-        .card-link:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.7);
-        }
-        .footer {
-            background-color: 
-            padding: 20px 0;
-            margin-top: 40px;
-            border-top: 1px solid 
-        }
-    </style>
-</head>
-<body>
-
-<div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="
-    <button type="button" data-bs-target="
-    <button type="button" data-bs-target="
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="img/medico1.jpg" class="d-block w-100" alt="Gestión de Inventario">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Gestión de Inventario</h5>
-        <p>Control total sobre sus productos y movimientos.</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="img/medico2.jpg" class="d-block w-100" alt="Optimización de Procesos">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Optimización de Procesos</h5>
-        <p>Mejore la eficiencia de su cadena de suministro.</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="img/medico3.jpg" class="d-block w-100" alt="Análisis y Reportes">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Análisis y Reportes</h5>
-        <p>Tome decisiones informadas con datos precisos.</p>
-      </div>
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav mx-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="./categorias/index.php">Categorías</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="./proveedores/index.php">Proveedores</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="./productos/index.php">Productos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="./movimientos/index.php">Movimientos</a>
-        </li>
-        <?php if ($rolUsu == 'gerente'): ?>
-        <li class="nav-item">
-          <a class="nav-link" href="./usuarios/index.php">Usuarios</a>
-        </li>
-        <?php endif; ?>
-        <li class="nav-item">
-          <a class="nav-link" href="logout.php">Cerrar Sesión</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
 
 <div class="container my-5">
-    <div class="p-5 mb-4 rounded-3 welcome-card">
+    <div class="p-5 mb-5 rounded-3 welcome-header">
         <div class="container-fluid py-5 text-center">
-            <h1 class="display-5 fw-bold">Bienvenido, <?php echo $nomUsu; ?> (<?php echo $rolUsu; ?>)</h1>
-            <p class="fs-4">Gestión eficiente de su inventario.</p>
+            <h1 class="display-5 fw-bold">Bienvenido al Inventario de FarmaCorp</h1>
+            <p class="fs-4">Usuario: <?php echo $nomUsu; ?> (<?php echo $rolUsu; ?>)</p>
         </div>
     </div>
 
-    <div class="row text-center">
-        <div class="col-md-6 mb-4">
-            <a href="./categorias/index.php" class="text-decoration-none text-white">
-                <div class="card bg-dark card-link h-100">
+    <!-- Dashboard de Estadísticas -->
+    <div class="row mb-5">
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="stat-card bg-primary">
+                <div class="stat-card-body">
+                    <div class="stat-card-icon"><i class="fas fa-box-open"></i></div>
+                    <div class="stat-card-content">
+                        <div class="stat-card-title">Productos</div>
+                        <div class="stat-card-number"><?php echo $total_productos; ?></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="stat-card bg-success">
+                <div class="stat-card-body">
+                    <div class="stat-card-icon"><i class="fas fa-tags"></i></div>
+                    <div class="stat-card-content">
+                        <div class="stat-card-title">Categorías</div>
+                        <div class="stat-card-number"><?php echo $total_categorias; ?></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="stat-card bg-warning text-dark">
+                <div class="stat-card-body">
+                    <div class="stat-card-icon"><i class="fas fa-truck"></i></div>
+                    <div class="stat-card-content">
+                        <div class="stat-card-title">Proveedores</div>
+                        <div class="stat-card-number"><?php echo $total_proveedores; ?></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="stat-card bg-info">
+                <div class="stat-card-body">
+                    <div class="stat-card-icon"><i class="fas fa-exchange-alt"></i></div>
+                    <div class="stat-card-content">
+                        <div class="stat-card-title">Movimientos</div>
+                        <div class="stat-card-number"><?php echo $total_movimientos; ?></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Accesos Directos -->
+    <h2 class="mb-4 text-center">Accesos Directos</h2>
+    <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4">
+            <a href="./categorias/" class="card-link">
+                <div class="card h-100 text-center">
                     <div class="card-body">
                         <i class="fas fa-tags fa-3x mb-3"></i>
                         <h5 class="card-title">Gestión de Categorías</h5>
@@ -149,9 +81,9 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
                 </div>
             </a>
         </div>
-        <div class="col-md-6 mb-4">
-            <a href="./productos/index.php" class="text-decoration-none text-white">
-                <div class="card bg-dark card-link h-100">
+        <div class="col-lg-4 col-md-6 mb-4">
+            <a href="./productos/" class="card-link">
+                <div class="card h-100 text-center">
                     <div class="card-body">
                         <i class="fas fa-box-open fa-3x mb-3"></i>
                         <h5 class="card-title">Gestión de Productos</h5>
@@ -160,9 +92,9 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
                 </div>
             </a>
         </div>
-        <div class="col-md-6 mb-4">
-            <a href="./proveedores/index.php" class="text-decoration-none text-white">
-                <div class="card bg-dark card-link h-100">
+        <div class="col-lg-4 col-md-6 mb-4">
+            <a href="./proveedores/" class="card-link">
+                <div class="card h-100 text-center">
                     <div class="card-body">
                         <i class="fas fa-truck fa-3x mb-3"></i>
                         <h5 class="card-title">Gestión de Proveedores</h5>
@@ -171,9 +103,9 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
                 </div>
             </a>
         </div>
-        <div class="col-md-6 mb-4">
-            <a href="./movimientos/index.php" class="text-decoration-none text-white">
-                <div class="card bg-dark card-link h-100">
+        <div class="col-lg-4 col-md-6 mb-4">
+            <a href="./movimientos/" class="card-link">
+                <div class="card h-100 text-center">
                     <div class="card-body">
                         <i class="fas fa-exchange-alt fa-3x mb-3"></i>
                         <h5 class="card-title">Gestión de Movimientos</h5>
@@ -183,9 +115,9 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
             </a>
         </div>
         <?php if ($rolUsu == 'gerente'): ?>
-        <div class="col-md-6 mb-4">
-            <a href="./usuarios/index.php" class="text-decoration-none text-white">
-                <div class="card bg-dark card-link h-100">
+        <div class="col-lg-4 col-md-6 mb-4">
+            <a href="./usuarios/" class="card-link">
+                <div class="card h-100 text-center">
                     <div class="card-body">
                         <i class="fas fa-users fa-3x mb-3"></i>
                         <h5 class="card-title">Gestión de Usuarios</h5>
@@ -198,17 +130,4 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
     </div>
 </div>
 
-<footer class="footer text-white">
-    <div class="container text-center">
-        <p>&copy; 2025 Sistema de Inventario. Todos los derechos reservados.</p>
-        <p>
-            <a href="
-            <a href="
-            <a href="
-        </p>
-    </div>
-</footer>
-
-<script src="./adi_bootstrap/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php require_once 'templates/footer.php'; ?>

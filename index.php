@@ -8,8 +8,8 @@
 	<link href="./adi_bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<style>
 		body {
-			background-color: 
-			color: 
+			background-color: #212529; /* Fondo oscuro */
+			color: #f8f9fa; /* Texto claro */
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -17,7 +17,7 @@
 			margin: 0;
 		}
 		.login-card {
-			background: 
+			background: #343a40; /* Fondo de la tarjeta un poco más claro */
 			border: none;
 			border-radius: 15px;
 			box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
@@ -26,30 +26,33 @@
 			max-width: 400px;
 		}
 		.login-card h2 {
-			color: 
+			color: #f8f9fa; /* Texto claro para el título */
 			text-align: center;
 			margin-bottom: 30px;
 			font-weight: 700;
 		}
 		.form-control {
-			background-color: 
-			border: 1px solid 
-			color: 
+			background-color: #495057; /* Fondo de input más oscuro */
+			border: 1px solid #6c757d;
+			color: #f8f9fa; /* Texto de input claro */
 		}
 		.form-control:focus {
-			background-color: 
-			border-color: 
-			box-shadow: 0 0 0 0.25rem rgba(173, 181, 189, 0.25);
-			color: 
+			background-color: #495057;
+			border-color: #80bdff; /* Azul de foco de Bootstrap */
+			box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+			color: #f8f9fa;
 		}
+        .form-control::placeholder { /* Estilo para el texto de placeholder */
+            color: #adb5bd;
+        }
 		.btn-primary {
-			background-color: 
-			border-color: 
+			background-color: #0d6efd; /* Azul primario de Bootstrap */
+			border-color: #0d6efd;
 			font-weight: 600;
 		}
 		.btn-primary:hover {
-			background-color: 
-			border-color: 
+			background-color: #0b5ed7;
+			border-color: #0a58ca;
 		}
 	</style>
 </head>

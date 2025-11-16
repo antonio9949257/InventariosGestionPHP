@@ -8,9 +8,10 @@ body{
 	background: #dedede;
 	display: flex;
 	min-height: 100vh;
+	justify-content: center;
+	align-items: center;
 }
-form{
-	margin: auto;
+.login-card{
 	width: 50%;
 	max-width: 500px;
 	background: #f3f3f3;
