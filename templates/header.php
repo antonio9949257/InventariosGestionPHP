@@ -132,6 +132,7 @@ $rolUsu = htmlspecialchars($_SESSION['rol']);
         <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>proveedores/">Proveedores</a></li>
         <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>productos/">Productos</a></li>
         <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>movimientos/">Movimientos</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>chat_asistente.php" title="Asistente IA"><i class="fas fa-comments"></i> Asistente IA</a></li>
         <?php if ($rolUsu == 'gerente'): ?>
         <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>usuarios/">Usuarios</a></li>
         <?php endif; ?>
