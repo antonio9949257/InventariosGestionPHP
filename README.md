@@ -106,7 +106,7 @@ Sigue estos pasos para poner en marcha el proyecto en un entorno de desarrollo l
     *   Inicia tu servidor Apache.
     *   Abre tu navegador y ve a `http://localhost/<NOMBRE_DEL_DIRECTORIO>`.
 
-## ใช้งาน (Uso)
+## Uso
 
 Una vez que el proyecto esté corriendo, serás recibido por la pantalla de login. Puedes registrar un nuevo usuario o usar las credenciales por defecto si las has configurado en el script de la base de datos.
 
